@@ -1,0 +1,163 @@
+//poo con python
+la programacion orientada a objetos en python es una buena y sencilla forma de estructurar un codigo
+es tan sencillo como crear un molde o tipo, y luego crear objetos que tengan el comportamiento del mismo ej:
+clase o tipo de objeto
+class coche:
+#atributos del objeto
+    color = ""
+        puertas = 0
+    #constructor `esto es el comportamiento inicial que tendra un objeto cuando lo instancies`
+    def __init__(self, color, puertas):
+        self.color = color #con esto se permite indicarle al objeto de tipo coche su color y sus puertas
+        self.puertas = puertas
+        prinr(f"tu coche es {self.color} y es de {self.puertas} puertas")
+`ferrari = coche(color="rojo", puertas= 3)`
+respuesta tu coche es de color rojo y tiene 3 puertas
+//luego las clases pueden heredar pero hay que entender que una clase que hereda puede acceder a atributos y metodos de la clase padre, pero la clase padre no puede acceder a lo de el hijo
+ej:
+
+class coche:
+puertas = 0
+def __init__(self, puertas):
+self.puertas = puertas
+print('coche de {self.puertas} puertas creado')
+def encender():
+print('encendiendo motor')
+class moto(coche): # moto hereda de coche por lo que moto al ser la hija podra arrancar y hacer el caballito, pero coche al ser el padre podra arrancar pero no podra hacer el caballito, por que caballito es un metodo del hijo
+color= ""
+def __init__(self, color):
+self.color = color
+print(f'moto de color {self.color} creada')
+def caballito():
+print('haciendo caballito')
+coche1 = coche(4)
+`coche de 4 puertas creado`
+moto1 = moto('azul')
+`moto de color azul creada`
+moto1.encender()
+`encendiendo motor` # moto puede arrancar por que lo ha heredado de coche, pero tambien puede hacer el caballito, porque es un metodo interno de moto
+coche1.encender()
+`encendiendo motor`
+coche1.caballito()
+`the method 'caballito() is not defined in the class coche'` #la clase coche puede encender por que dispone de ese metodo, pero caballito() es un metodo propietario de moto por lo que la clase padre coche no tiene el alcance necesario
+POLIMORFISMO
+---------------
+El polimorfismo es un principio fundamental de la programación orientada a objetos. Se refiere a la capacidad de un objeto para tomar muchas formas. En Python, el polimorfismo permite a los programadores usar métodos de una manera más abstracta en la superclase.
+
+Por ejemplo, si tienes una superclase llamada "Vehiculo" y dos subclases llamadas "Coche" y "Moto", ambas subclases pueden tener un método con el mismo nombre (por ejemplo, "encender") pero con implementaciones diferentes. Cuando llamas al método "encender" en un objeto de la clase "Coche" o "Moto", Python determinará automáticamente qué versión del método usar, dependiendo del tipo de objeto.
+
+Aquí está el pseudocódigo para este ejemplo:
+
+Definir la superclase "Vehiculo" con un método "encender".
+Definir la subclase "Coche" que hereda de "Vehiculo" y sobrescribe el método "encender".
+Definir la subclase "Moto" que también hereda de "Vehiculo" y sobrescribe el método "encender".
+Crear un objeto de la clase "Coche" y llamar al método "encender".
+Crear un objeto de la clase "Moto" y llamar al método "encender".
+`Python
+class Vehiculo:
+    def encender(self):
+        pass
+
+class Coche(Vehiculo):
+    def encender(self):
+        print("Encendiendo motor del coche")
+
+class Moto(Vehiculo):
+    def encender(self):
+        print("Encendiendo motor de la moto")
+
+coche = Coche()
+moto = Moto()
+
+coche.encender()  # Imprime "Encendiendo motor del coche"
+moto.encender()   # Imprime "Encendiendo motor de la moto"
+`
+encapsulacion
+------------------
+La encapsulación es otro principio fundamental de la programación orientada a objetos. Se refiere a la práctica de mantener los datos o detalles de un objeto ocultos, permitiendo el acceso a esos datos solo a través de métodos específicos.
+
+En Python, la encapsulación se logra utilizando métodos y atributos privados y protegidos. Un atributo privado se denota con dos guiones bajos al principio (__atributo). Un atributo protegido se denota con un solo guión bajo al principio (_atributo).
+
+Aquí está el pseudocódigo para un ejemplo de encapsulación:
+
+Definir una clase "Coche" con un atributo privado "__kilometraje".
+Definir un método "get_kilometraje" que devuelve el valor de "__kilometraje".
+Definir un método "set_kilometraje" que establece el valor de "__kilometraje" si el nuevo valor es mayor que el valor actual.
+Crear un objeto de la clase "Coche" y probar los métodos "get_kilometraje" y "set_kilometraje".
+class Coche:
+    def __init__(self):
+        self.__kilometraje = 0
+
+    def get_kilometraje(self):
+        return self.__kilometraje
+
+    def set_kilometraje(self, kilometraje):
+        if kilometraje >= self.__kilometraje:
+            self.__kilometraje = kilometraje
+        else:
+            print("No puedes disminuir el kilometraje")
+
+coche = Coche()
+print(coche.get_kilometraje())  # Imprime "0"
+coche.set_kilometraje(100)
+print(coche.get_kilometraje())  # Imprime "100"
+coche.set_kilometraje(50)       # Imprime "No puedes disminuir el kilometraje"
+abstraction
+------------
+La abstracción es otro principio clave de la programación orientada a objetos. Se refiere a la práctica de ocultar los detalles de implementación y mostrar solo la funcionalidad al usuario. En otras palabras, el usuario interactúa con el objeto a través de métodos, sin necesidad de entender cómo se implementan esos métodos.
+
+En Python, la abstracción se puede lograr utilizando clases abstractas y métodos abstractos. Una clase abstracta es una clase que no puede ser instanciada, y un método abstracto es un método que se declara pero no se implementa en la clase abstracta.
+
+Aquí está el pseudocódigo para un ejemplo de abstracción:
+
+Importar el módulo abc que proporciona la infraestructura para definir clases abstractas.
+Definir una clase abstracta "Vehiculo" con un método abstracto "encender".
+Definir una subclase "Coche" que hereda de "Vehiculo" e implementa el método "encender".
+Crear un objeto de la clase "Coche" y llamar al método "encender".
+
+
+
+from abc import ABC, abstractmethod
+
+class Vehiculo(ABC):
+    @abstractmethod
+    def encender(self):
+        pass
+
+class Coche(Vehiculo):
+    def encender(self):
+        print("Encendiendo motor del coche")
+
+coche = Coche()
+coche.encender()  # Imprime "Encendiendo motor del coche"
+
+
+
+
+
+
+
+
+###
+B
+I
+B
+L
+I
+O
+G
+R
+A
+F
+I
+A
+###
+
+/> https://www.youtube.com/watch?v=VYXdpjCZojA
+/>https://python.org
+
+
+
+
+
+
